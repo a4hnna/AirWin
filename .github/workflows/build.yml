@@ -7,15 +7,14 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - name: Checkout code with submodules
+      - name: Checkout main code
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
+
+      - name: Manually clone OWDL dependency
+        run: git clone https://github.com/seregonwar/OWDL.git OWDL
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-pc-windows-msvc
 
       - name: Build
         run: cargo build --release
